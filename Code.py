@@ -21,7 +21,7 @@ def media_video(url):
 def merge_video(list_time, url, save_dir):
     check_time = 0
     list_sum = []
-    px = '640 x 360'
+    px = list(list_time.items())[0][1][1]
     for i in list_time.items():
         if check_time < 3000:
             clip = VideoFileClip(url + r'/' + i[0])
@@ -30,7 +30,7 @@ def merge_video(list_time, url, save_dir):
                 check_time += i[1][0]
                 print(i[0])
             else:
-                print('Данный видео-файл пропущен так как он не совпадает с выбранным расширением!: ', i[0])
+                print('Данный видео-файл пропущен, так как он не совпадает по расширению!: ', i[0])
         else:
             print(i)
             break
@@ -47,7 +47,6 @@ def merge_music(url, save_dir):
         list_sum.append(clip)
         print(url + '/' + i)
     combined_sounds = sum(list_sum)
-    # Требуется указание места для сохранения аудио
     combined_sounds.export(save_dir + r'/' + 'merge_music.wav', format="wav")
     print(content)
 
@@ -62,9 +61,8 @@ url_video = input('Укажите папку с видеофрагментами
 url_music = input('Укажите папку с аудиофрагментами (Пример: D:\\Video): ')
 # r"C:\\Users\Denis\Desktop\new_music"
 save_dir = input('Укажите папку для сохранения видео (Пример: D:\\Video): ')
+
 # Result
-#url_video = "C:\\Users\Denis\Desktop\pythonvideo\image1"
-#save_dir = "F:\\"
 # merge video
 list_video = media_video(url_video)
 merge_video(list_video, url_video, save_dir)
